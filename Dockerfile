@@ -20,7 +20,49 @@ USER $USERNAME
 WORKDIR /home/$USERNAME
 
 # Configure chain to testnet
-RUN echo '{"chain": "Testnet"}' > /home/$USERNAME/visor.json
+RUN echo '{"chain": "Mainnet"}' > /home/$USERNAME/visor.json
+
+
+RUN mkdir -p /home/$USERNAME && \
+  cat <<EOF > /home/$USERNAME/override_gossip_config.json
+{
+  "root_node_ips": [
+    {"Ip": "64.31.48.111"},
+    {"Ip": "64.31.51.137"},
+    {"Ip": "180.189.55.18"},
+    {"Ip": "180.189.55.19"},
+    {"Ip": "46.105.222.166"},
+    {"Ip": "91.134.41.52"},
+    {"Ip": "13.230.78.76"},
+    {"Ip": "54.248.41.39"},
+    {"Ip": "52.68.71.160"},
+    {"Ip": "13.114.116.44"},
+    {"Ip": "199.254.199.190"},
+    {"Ip": "199.254.199.247"},
+    {"Ip": "45.32.32.21"},
+    {"Ip": "157.90.207.92"},
+    {"Ip": "148.251.76.7"},
+    {"Ip": "109.123.230.189"},
+    {"Ip": "31.223.196.172"},
+    {"Ip": "31.223.196.238"},
+    {"Ip": "91.134.71.237"},
+    {"Ip": "57.129.140.247"},
+    {"Ip": "160.202.131.51"},
+    {"Ip": "72.46.87.141"},
+    {"Ip": "199.254.199.12"},
+    {"Ip": "199.254.199.54"},
+    {"Ip": "45.250.255.111"},
+    {"Ip": "109.94.99.131"},
+    {"Ip": "8.220.222.129"},
+    {"Ip": "8.220.213.65"},
+    {"Ip": "144.168.36.162"},
+    {"Ip": "181.41.140.106"}
+    ],
+  "try_new_peers": false,
+  "chain": "Mainnet"
+}
+EOF
+
 
 # Import GPG public key
 RUN curl -o /home/$USERNAME/pub_key.asc $PUB_KEY_URL \
